@@ -15,3 +15,9 @@ seguir los pasos de conectando.py
 hacer peticiones desde el cliente
 luego ejecutar conectando_resnet18.py
 adicionar medición del tiempo de servicio
+
+
+Actividad
+1) Comparar los tiempos de CPU y GPU con un usuario.
+2) Comparar los tiempos de servicio desde el cliente.
+3) Ser el Host para múltiples clientes y sincronizar las peticiones.
