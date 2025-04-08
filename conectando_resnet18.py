@@ -34,20 +34,23 @@ labels = urllib.request.urlopen(labels_url).read().decode("utf-8").splitlines()
 app = FastAPI()
 
 @app.post("/predict")
-async def predict(file: UploadFile = File(...)):
+def predict(file: UploadFile = File(...)):
     try:
-        contents = await file.read()
+        start = time.time()
+        contents = file.file.read()
+        
         image = Image.open(io.BytesIO(contents)).convert("RGB")
-
         input_tensor = transform(image).unsqueeze(0).to(device)
 
-        start = time.time()
+        
         with torch.no_grad():
             output = model(input_tensor)
             pred_idx = output.argmax().item()
-        end = time.time()
+        
 
         label = labels[pred_idx]
+
+        end = time.time()
         infer_time = round(end - start, 4)
 
         return JSONResponse(content={
